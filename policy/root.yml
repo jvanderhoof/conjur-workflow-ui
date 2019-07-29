@@ -1,0 +1,16 @@
+- !policy conjur
+- !policy
+  id: resources
+  body:
+    - !policy
+      id: databases
+      body:
+        - !policy staging
+        - !policy production
+- !policy
+  id: applications
+  body:
+    - !policy development
+    - !policy staging
+    - !policy integration
+    - !policy production

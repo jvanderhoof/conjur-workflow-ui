@@ -1,0 +1,20 @@
+#!/bin/bash -ex
+
+# conjur_url="https://localhost"
+conjur_url="https://conjur"
+
+docker-compose exec web bash -c "
+  curl --cacert conjur.pem --user admin:secret $conjur_url/authn/demo/login
+"
+
+# docker-compose exec -it web bash -c "
+#   p=conjur.pem
+#   f=conjur.cer
+#
+#
+#   echo $(openssl s_client -showcerts -connect \"$conjur_url:443\" -servername $conjur_url)
+#   # get pem file
+#   openssl s_client -showcerts -connect \"$conjur_url:443\" -servername $conjur_url  </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $p
+#   # https://stackoverflow.com/questions/13732826/convert-pem-to-crt-and-key
+#   openssl x509 -inform PEM -in $p -outform DER -out $f
+# "

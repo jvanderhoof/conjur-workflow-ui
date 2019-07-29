@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @database.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @database.url %>
+</p>
+
+<p>
+  <strong>Port:</strong>
+  <%= @database.port %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @database.type %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @database.password %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @database.username %>
+</p>
+
+<%= link_to 'Edit', edit_database_path(@database) %> |
+<%= link_to 'Back', databases_path %>

@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+# function finish {
+#   docker-compose down -v
+# }
+# trap finish EXIT
+
+function start {
+  rm -f tmp/pids/server.pid
+  docker-compose build
+
+  docker-compose up -d conjur
+
+  docker-compose exec conjur bash -c "
+   evoke configure master -h conjur-master.local -p secret demo
+  "
+  api_key=$(docker-compose exec conjur bash -c "curl --user admin:secret http://localhost/authn/demo/login")
+  echo "api_key: $api_key"
+  API_KEY="$api_key" docker-compose up --no-deps -d web
+
+  docker-compose exec web bash -c "
+    cp /opt/certs/ca.pem /usr/local/share/ca-certificates/conjur.crt
+    update-ca-certificates
+  "
+}
+
+start
+docker-compose logs -f --tail 20

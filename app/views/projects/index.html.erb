@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Projects</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Namespace</th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= link_to(project.name, project_path(project.id)) %></td>
+        <td><%= project.namespace %></td>
+        <td><%= link_to 'Edit', edit_project_path(project.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project', new_project_path %>

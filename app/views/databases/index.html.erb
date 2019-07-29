@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Databases</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">Name</th>
+      <th scope="col">Namespace</th>
+      <th  scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @databases.each do |database| %>
+      <tr>
+        <td><%= database.database_type %></td>
+        <td><%= database.name %></td>
+        <td><%= database.namespace %></td>
+        <td><%= link_to 'Edit', edit_database_path(database.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Database', new_database_path %>

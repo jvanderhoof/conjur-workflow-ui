@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th scope="col">Name</th>
+      <td><%= @project.name %></td>
+    </tr>
+    <tr>
+      <th scope="col">Namespace</th>
+      <td><%= @project.namespace %></td>
+    </tr>
+    <tr>
+      <th scope="col">Resources</th>
+      <td>
+        <ul>
+          <% @project.resources.each do |resource| %>
+            <li><%= resource %></li>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<%= link_to 'Enable Database', new_grant_path(project_id: @project.id) %> |
+<%= link_to 'Edit', edit_project_path(@project.id) %> |
+<%= link_to 'Back', projects_path %>

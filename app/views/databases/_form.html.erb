@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-4">
+    <%= bootstrap_form_with(model: database, local: true) do |form| %>
+      <% if database.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(database.errors.count, "error") %> prohibited this database from being saved:</h2>
+
+          <ul>
+          <% database.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form.text_field :name %>
+      <%= form.text_field :database_type %>
+      <%= form.select :namespace, [['staging', 'resources/databases/staging'],['production','resources/databases/production']], {include_blank: true} %>
+      <%= form.text_field :url %>
+      <%= form.text_field :port %>
+      <%= form.text_field :username %>
+      <%= form.text_field :password %>
+
+      <%= form.submit %>
+    <% end %>
+  </div>
+</div>

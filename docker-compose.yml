@@ -1,0 +1,41 @@
+version: "3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec rails s -b 0.0.0.0
+    volumes:
+      - .:/app
+      - certs:/opt/certs/
+
+    ports:
+      - "3000:3000"
+    depends_on:
+      - conjur
+
+  conjur:
+    image: registry2.itci.conjur.net/conjur-appliance:5.0-stable
+    ports:
+      - "443:443"
+    security_opt:
+      - "seccomp:unconfined"
+    environment:
+      - API_KEY=${API_KEY}
+    volumes:
+      - certs:/opt/conjur/etc/ssl/
+
+volumes:
+  certs:
+
+  # web:
+  #   build: .
+  #   # command: sleep infinite
+  #   # command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  #   command: bundle exec rails s -b 0.0.0.0
+  #   volumes:
+  #     - .:/myapp
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - conjur
